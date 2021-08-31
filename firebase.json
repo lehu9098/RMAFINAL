@@ -1,0 +1,137 @@
+{
+  "hosting": {
+    "public": "dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
+    "redirects": [ 
+      {
+      "source": "/RiverReport.ctrl",
+      "destination": "/RiverReports",
+      "type": 301
+    },
+    {
+      "source": "/GuidedTrips.ctrl",
+      "destination": "/GuideTrips",
+      "type": 301
+    },
+    {
+      "source": "/Blog.ctrl",
+      "destination": "/Blog",
+      "type": 301
+    },{
+      "source": "/3/One-On-One.cls",
+      "destination": "/OneOnOne",
+      "type": 301
+    },
+    {
+      "source": "/Rocky_Mtn_Nat_Park.riv",
+      "destination": "/RMNP",
+      "type": 301
+    },
+    {
+      "source": "/Big_Thompson_River.riv",
+      "destination": "/BigThompson",
+      "type": 301
+    },
+    {
+      "source": "/Weather/Big_Thompson_River.riv",
+      "destination": "/BigThompson",
+      "type": 301
+    },
+    {
+      "source": "/Bugs/Big_Thompson_River.riv",
+      "destination": "/BigThompson",
+      "type": 301
+    },
+    {
+      "source": "/Map/Big_Thompson_River.riv",
+      "destination": "/BigThompson",
+      "type": 301
+    },
+    {
+      "source": "/Bugs/Rocky_Mtn_Nat_Park.riv?station=1",
+      "destination": "/RMNP",
+      "type": 301
+    },
+    {
+      "source": "/Weather/Rocky_Mtn_Nat_Park.riv",
+      "destination": "/RMNP",
+      "type": 301
+    },
+    {
+      "source": "/Map/Rocky_Mtn_Nat_Park.riv",
+      "destination": "/RMNP",
+      "type": 301
+    },
+    {
+      "source": "/Bugs/Boulder_Creek.riv",
+      "destination": "/BoulderCreek",
+      "type": 301
+    },
+    {
+      "source": "/Boulder_Creek.riv",
+      "destination": "/BoulderCreek",
+      "type": 301
+    },
+    {
+      "source": "/Weather/Boulder_Creek.riv",
+      "destination": "/BoulderCreek",
+      "type": 301
+    },
+    {
+      "source": "/Map/Boulder_Creek.riv",
+      "destination": "/BoulderCreek",
+      "type": 301
+    },
+    {
+      "source": "/Saint_Vrain_River.riv",
+      "destination": "/StVrain",
+      "type": 301
+    },
+    {
+      "source": "/Weather/Saint_Vrain_River.riv",
+      "destination": "/StVrain",
+      "type": 301
+    },
+    {
+      "source": "/Bugs/Saint_Vrain_River.riv",
+      "destination": "/StVrain",
+      "type": 301
+    },
+    {
+      "source": "/Map/Saint_Vrain_River.riv",
+      "destination": "/StVrain",
+      "type": 301
+    },
+    {
+      "source": "/South_Boulder_Creek.riv",
+      "destination": "/SouthBoulderCreek",
+      "type": 301
+    },
+    {
+      "source": "/Bugs/South_Boulder_Creek.riv",
+      "destination": "/SouthBoulderCreek",
+      "type": 301
+    },
+    {
+      "source": "/Weather/South_Boulder_Creek.riv",
+      "destination": "/SouthBoulderCreek",
+      "type": 301
+    },
+    {
+      "source": "/Map/South_Boulder_Creek.riv",
+      "destination": "/SouthBoulderCreek",
+      "type": 301
+    }
+  ]
+  }
+}
