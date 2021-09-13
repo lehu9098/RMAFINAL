@@ -9,7 +9,7 @@
           </v-flex>
           <v-flex xs10 sm10 md10>
             <v-container class="white">
-              <v-text-field class="" outlined type="text" v-model="search" placeholder="Search Blogs by name or date" v-on:keyup="searcher()"></v-text-field>
+              <v-text-field outlined type="text" v-model="search" placeholder="Search Blogs by name or date" v-on:keyup="searcher()"></v-text-field>
             </v-container>
           </v-flex>
           <v-flex xs10 sm10 md10 v-for="blog in BlogArray" :key="blog.id">
@@ -23,6 +23,7 @@
                   <h4 style="text-align:center;">{{blog.date}}</h4>
                   <h4 style="text-align:center;" class="mt-2">By {{blog.author}}</h4>
                   <v-card-text class="d-none d-sm-flex mx-2">{{blog.content}}...</v-card-text>
+                  <h3 style="text-align:center;"><v-btn route :to="'/Blog/' + blog.id" text>Read More</v-btn></h3>
               </v-flex>
             </v-layout>
           </v-container>

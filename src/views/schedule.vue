@@ -259,8 +259,6 @@ export default{
             })
           })
         })
-
-      console.log(events)
       this.events = events
     },
   },

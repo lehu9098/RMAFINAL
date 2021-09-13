@@ -115,7 +115,7 @@ export default {
   data(){
     return{
       imgInput:"",
-      days: ["Monday", "Tuesday", "Wednsday", "Thursday", "Friday", "Saturday"],
+      days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
       weather: [],
       currentMap: "",
       stars: 4,
