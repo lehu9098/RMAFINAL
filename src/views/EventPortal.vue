@@ -9,7 +9,7 @@
             </v-flex>
               <v-flex xs12 sm8 md6 v-for="event in eventTitle" :key="event.id">
                 <v-card class="ma-2 card-overflow"  height="300" >
-                <v-card-title> {{event.title}} </v-card-title>
+                <v-card-title> {{event.title}} / {{event.date}}</v-card-title>
                 <v-simple-table>
                   <template v-slot:default>
                 <thead>
@@ -131,7 +131,6 @@ export default{
         var items = snapshot.docs;
           items.forEach(item =>
           {
-
                 fb.db.collection(this.dbName).doc(item.id).collection('participants').get().then((snapshot) =>
                 {
                   var Attendance = snapshot.docs;
@@ -167,7 +166,8 @@ export default{
                   this.eventTitle.push({
                     title: item.data().title,
                     id: item.id,
-                    participants: this.eventAtt
+                    participants: this.eventAtt,
+                    date: item.data().date
                   })
                     this.eventAtt = []
                 })
