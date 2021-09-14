@@ -1,13 +1,13 @@
  <template>
-  <v-layout justify-center id="Home">
-    <v-flex xs12 sm12 md12>
-      <v-layout justify-center>
-        <v-flex xs12 sm12 md12>
-              <phototog :images="images"></phototog>
+   <v-layout justify-center id="Home">
+      <v-flex xs12 sm12 md12>
+        <v-layout justify-center>
+          <v-flex xs12 sm12 md12>
+                <phototog :images="images"></phototog>
           </v-flex>
-      </v-layout>
+        </v-layout>
+        <v-alert dense type="info" text> Alert New Thing Happened</v-alert>
     <v-container>
-
       <v-layout row justify-center >
             <v-flex xs12 sm12 md12>
               <div>
