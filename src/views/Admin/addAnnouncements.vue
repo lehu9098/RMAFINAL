@@ -3,8 +3,8 @@
     <v-container>
         <v-layout row justify-center>
           <v-flex xs12 sm8 md8>
-            <v-alert type="error" v-if="error"> An Error Occured when adding an Annoucement  <v-btn text><v-icon class="font-weight-light">close</v-icon></v-btn></v-alert>
-            <v-alert type="success" v-if="success"> You successfully updated added an Annoucement  <v-btn text><v-icon class="font-weight-light">close</v-icon></v-btn></v-alert>
+            <v-alert type="error" v-if="error"> An Error Occured when adding an Annoucement  <v-btn text v-on:click="close()"><v-icon class="font-weight-light">close</v-icon></v-btn></v-alert>
+            <v-alert type="success" v-if="success"> You successfully updated added an Annoucement  <v-btn text v-on:click="close()"><v-icon class="font-weight-light">close</v-icon></v-btn></v-alert>
             <v-card class="ma-4" raised>
               <h3 style="text-align: center;" class="pa-4">Add Annoucement</h3>
               <v-form class="pa-4" outlined ref="form">
@@ -66,15 +66,10 @@ export default {
       fb.db.collection('Announcements').doc('dXPC6NqqtFIgFRIWfNGY').set(this.annoucnementObject).then(() => {
         this.success = true;
         this.photo = null;
-        fb.storage.ref(this.photoToDelete).delete().then(() => {
-          console.log("success");
-        }).catch((error) => {
-          console.log(error)
-        });
+        fb.storage.ref(this.photoToDelete).delete();
       }).catch((error) => {
         this.error = true;
         this.errorMessage = error.message;
-        console.log(error);
       });
     },
     //Upload the photo to firebase storage
@@ -84,12 +79,15 @@ export default {
       fb.storage.ref(this.photo.name).put(this.photo).then((snapshot)=>
       {
         snapshot.ref.getDownloadURL().then((url)=>{
-            console.log(url);
             this.annoucnementObject.photoUrl = url;
             this.annoucnementObject.storageName = this.photo.name;
             this.load = false;
           })
       })
+    },
+    close()
+    {
+      this.success = false;
     }
   },
   created()
