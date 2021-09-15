@@ -62,6 +62,7 @@ import Kids from '../views/kids.vue'
 import Youth from '../views/youth.vue'
 import TyingVideos from '../views/tyingVideos.vue'
 import WhatToBring from '../views/WhatToBring.vue'
+import AddAnnouncements from '../views/Admin/addAnnouncements.vue'
 
 Vue.use(VueRouter)
 
@@ -371,7 +372,12 @@ const routes = [
                     path: '/WhatToBring',
                     name: 'WhatToBring',
                     component: WhatToBring
-                  }
+                  },
+                  {
+                     path: '/AddAnnouncements',
+                     name: 'AddAnnouncements',
+                     component: AddAnnouncements
+                   }
 
 ]
 
