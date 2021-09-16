@@ -2,7 +2,7 @@
   <div>
     <v-container>
         <v-layout row justify-center>
-          <v-flex xs12 sm8 md8>
+          <v-flex xs12 sm12 md12>
             <v-alert type="error" v-if="error"> An Error Occured when adding an Annoucement  <v-btn text v-on:click="close()"><v-icon class="font-weight-light">close</v-icon></v-btn></v-alert>
             <v-alert type="success" v-if="success"> You successfully updated added an Annoucement  <v-btn text v-on:click="close()"><v-icon class="font-weight-light">close</v-icon></v-btn></v-alert>
             <v-card class="ma-4" raised>
@@ -75,15 +75,18 @@ export default {
     //Upload the photo to firebase storage
     upload()
     {
-      this.load = true;
-      fb.storage.ref(this.photo.name).put(this.photo).then((snapshot)=>
+      if(this.photo != null)
       {
-        snapshot.ref.getDownloadURL().then((url)=>{
-            this.annoucnementObject.photoUrl = url;
-            this.annoucnementObject.storageName = this.photo.name;
-            this.load = false;
-          })
-      })
+        this.load = true;
+        fb.storage.ref(this.photo.name).put(this.photo).then((snapshot)=>
+        {
+          snapshot.ref.getDownloadURL().then((url)=>{
+              this.annoucnementObject.photoUrl = url;
+              this.annoucnementObject.storageName = this.photo.name;
+              this.load = false;
+            })
+        })
+      }
     },
     close()
     {
