@@ -23,7 +23,7 @@
                     <v-img ref="announcementImage" :src="annoucnementObject.photoUrl" :max-height="annoucnementObject.height" :min-height="annoucnementObject.height" style="overflow:hidden; width: auto" class="align-center" eager></v-img>
                 </v-flex>
                 <v-flex xs5 sm5 md6>
-                  <v-card style="overflow: scroll" :height="annoucnementObject.height" scrollable flat>
+                  <v-card style="overflow-y: scroll" :height="annoucnementObject.height" scrollable flat>
                     <h2 style="border-bottom: 1px solid black;text-align:center;" class="ma-4 font-weight-light"><strong>{{annoucnementObject.title}}</strong></h2>
                     <p class="font-weight-light ma-10">
                       {{annoucnementObject.annoucement}}
