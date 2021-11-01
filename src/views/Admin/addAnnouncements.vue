@@ -33,6 +33,9 @@
                 </v-layout>
               </v-card>
           </v-flex>
+          <v-flex xs6 sm6 md6 class="mt-6">
+            <v-btn block dark class="red darken-3" @click="deleteAnnouncement()"> Delete Current Announcement </v-btn>
+          </v-flex>
         </v-layout>
 
   </v-container>
