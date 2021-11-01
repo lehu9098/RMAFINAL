@@ -1,22 +1,37 @@
  <template>
-  <v-layout justify-center id="Home">
-    <v-flex xs12 sm12 md12>
-      <v-layout justify-center>
-        <v-flex xs12 sm12 md12>
-              <phototog :images="images"></phototog>
+   <v-layout justify-center id="Home">
+      <v-flex xs12 sm12 md12>
+        <v-layout justify-center>
+          <v-flex xs12 sm12 md12>
+                <phototog :images="images"></phototog>
           </v-flex>
-      </v-layout>
+        </v-layout>
     <v-container>
-
       <v-layout row justify-center >
             <v-flex xs12 sm12 md12>
               <div>
-                <v-card tile flat class="ma-2 pa-2 border-thing card-overflow" height="auto">
+                <v-card tile flat class="ma-2 pa-2 border-thing" height="auto">
                   <h2 style="border-bottom: 1px solid black; border-top: 1px solid black; text-align:center;" class="pa-4 font-weight-light"><strong>The Shop</strong></h2>
                   <p class="font-weight-light pt-5">
                     {{outputted}}
                   </p>
                 </v-card>
+                <v-card tile flat class="ma-2 pa-2 border-thing">
+                    <h2 style="border-bottom: 1px solid black; border-top: 1px solid black; text-align:center;" class="py-4 font-weight-light"><strong>Announcements</strong></h2>
+                    <v-layout row justify-center>
+                      <v-flex xs12 sm7 md6>
+                          <v-img ref="announcementImage" :src="annoucnementObject.photoUrl" :max-height="annoucnementObject.height" :min-height="annoucnementObject.height" style="overflow:hidden; width: auto" class="mx-3 align-center" eager></v-img>
+                      </v-flex>
+                      <v-flex xs12 sm5 md6>
+                        <v-card style="overflow-y: scroll" :height="annoucnementObject.height" scrollable flat>
+                          <h2 style="border-bottom: 1px solid black;text-align:center;" class="ma-4 font-weight-light"><strong>{{annoucnementObject.title}}</strong></h2>
+                          <p class="font-weight-light ma-10">
+                            {{annoucnementObject.annoucement}}
+                          </p>
+                        </v-card>
+                      </v-flex>
+                      </v-layout>
+                    </v-card>
                 <upcomingEvents></upcomingEvents>
               </div>
             </v-flex>
@@ -128,7 +143,15 @@ export default {
         require("../Photos/shopPhotos/middle.jpg"),
         require("../Photos/shopPhotos/shirts.jpg"),
         require("../Photos/shopPhotos/shopside.jpg"),
-      ]
+      ],
+      annoucnementObject: {
+        annoucement: "",
+        title: "",
+        photoUrl: "",
+        ratio: null,
+        height: 375,
+        storageName: ""
+      }
 
 
   }
@@ -170,6 +193,11 @@ export default {
 
         }
     });
+  })
+
+  fb.db.collection('Announcements').doc('dXPC6NqqtFIgFRIWfNGY').get().then((snapshot) =>
+  {
+    this.annoucnementObject = snapshot.data();
   })
 }
 }

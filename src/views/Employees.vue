@@ -70,7 +70,6 @@ export default {
                   show: false,
                   url: snapshot.data().photoID
                 })
-                console.log(snapshot.data().photoID);
               }
             })
           })

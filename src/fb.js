@@ -4,6 +4,7 @@ import 'firebase/auth'
 import 'firebase/storage'
 import 'firebase/functions'
 require('firebase/auth')
+import 'firebase/analytics';
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
@@ -23,6 +24,7 @@ const db = firebase.firestore() //initializes a connection to our firestore db
 const auth = firebase.auth()
 const storage = firebase.storage()
 const functions = firebase.functions()
+firebase.analytics().logEvent('notification_received');
 
 
 export default{
