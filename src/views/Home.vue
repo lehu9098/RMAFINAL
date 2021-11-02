@@ -16,7 +16,7 @@
                     {{outputted}}
                   </p>
                 </v-card>
-                <v-card tile flat class="ma-2 pa-2 border-thing">
+                <v-card tile flat class="ma-2 pa-2 border-thing" v-if='annoucnementObject.active'>
                     <h2 style="border-bottom: 1px solid black; border-top: 1px solid black; text-align:center;" class="py-4 font-weight-light"><strong>Announcements</strong></h2>
                     <v-layout row justify-center>
                       <v-flex xs12 sm7 md6>
@@ -26,7 +26,7 @@
                         <v-card style="overflow-y: scroll" :height="annoucnementObject.height" scrollable flat>
                           <h2 style="border-bottom: 1px solid black;text-align:center;" class="ma-4 font-weight-light"><strong>{{annoucnementObject.title}}</strong></h2>
                           <p class="font-weight-light ma-10">
-                            {{annoucnementObject.annoucement}}
+                            {{annoucnementObject.announcement}}
                           </p>
                         </v-card>
                       </v-flex>
