@@ -177,8 +177,6 @@ import fb from "@/fb"
                {id:10, title: "Delete", src:'/Delete'},
                {id:11, title: "Modify", src:'/Modify'},
                {id:12, title: "Add Trip Dates", src:'/SpecialtyTrips'}
-               //{id:10, title: "scheduler", src:'/Schedule'},
-               //{id:11, title: "Employee schedule", src:'/EmployeeSchedule'}
              ]
            }
           else

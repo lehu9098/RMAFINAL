@@ -181,9 +181,8 @@ export default
              {id:10, title: "Delete", src:'/Delete'},
              {id:11, title: "Modify", src:'/Modify'},
              {id:12, title: "Add/Delete Trip Dates", src:'/SpecialtyTrips'},
-              {id:13, title: "Update Annnouncement", src:'/AddAnnouncements'},
+            {id:13, title: "Update Annnouncement", src:'/AddAnnouncements'},
 
-             //{id:11, title: "Employee schedule", src:'/EmployeeSchedule'}
            ]
          }
         else

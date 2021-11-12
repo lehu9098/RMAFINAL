@@ -1,0 +1,20 @@
+<template>
+  <GT :photos="photos" :about="about" :title="title"></GT>
+</template>
+<script>
+import GT from '../../components/GT.vue'
+export default{
+  components:
+  {
+    GT
+  },
+  data(){
+    return{
+      title: 'Sylvandale Guest Ranch',
+      about: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+      photos: [require('@/Photos/Sylvandale/IMG_5676.jpg'), require('@/Photos/Sylvandale/IMG_5650.jpg'),  require('@/Photos/Sylvandale/IMG_5724.jpg'),  require('@/Photos/Sylvandale/IMG_5727.jpg'),  require('@/Photos/Sylvandale/IMG_5673.jpg')]
+    }
+  }
+}
+
+</script>

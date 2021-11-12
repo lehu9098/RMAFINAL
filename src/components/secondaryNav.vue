@@ -122,8 +122,6 @@ export default
              {id: 7, title: 'Update River Report', src: '/UpdateRR'},
              {id: 8, title: 'Event Portal', src: '/EventPortal'},
              {id:9, title: "Email Blast", src:'/Email'},
-             //{id:10, title: "scheduler", src:'/Schedule'},
-             //{id:11, title: "Employee schedule", src:'/EmployeeSchedule'}
            ]
            this.addLinks = [{id: 1, title: 'Add Kids Camp', src: '/AddKidsCamp'},
            {id: 2, title: 'Add Event', src: '/AddEvent'},
