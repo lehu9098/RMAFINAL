@@ -2,7 +2,7 @@
   <div class="classes">
     <v-container class="py-1 my-1" v-if="shower">
       <v-alert type="success" >
-        Congrats you signed up for an event. If you have an account you can see your events there. Otherwise you will get a email to verify your attendance.
+        Congrats you signed up for an event. A shop employee will contact you to confirm your attendance a few days before the event.
         <v-btn text v-on:click="shower = false"><v-icon class="font-weight-light">close</v-icon></v-btn>
       </v-alert>
     </v-container>
@@ -31,9 +31,7 @@
                       </li>
                     </ul>
                   </v-card-text>
-                  <v-card-text><h3 style="text-align:center;" class="text-uppercase"><b>Call the shop today to book your spot!</b></h3></v-card-text>
-                  <v-card-text><h4 style="text-align:center;"><b>303-447-2400</b></h4></v-card-text>
-              <!--<v-card-text v-if="evt.capacity != 0" class="green--text"> <b>Available Spots: </b>{{evt.capacity}}</v-card-text>
+              <v-card-text v-if="evt.capacity != 0" class="green--text"> <b>Available Spots: </b>{{evt.capacity}}</v-card-text>
                   <v-card-text v-if="evt.capacity == 0" class="red--text"> <b>Available Spots: </b>This Class Is Full</v-card-text>
 
               <v-btn block text @click="evt.show = !evt.show" v-if="evt.capacity != 0"> Sign Up  <v-icon> expand_more </v-icon></v-btn>
@@ -47,7 +45,7 @@
                     <v-btn text block class="button-img grey" v-on:click="addParticipant(evt.id, evt.title, evt.dateFormatted, evt.timeFormatted, evt.date)"> Sign Up</v-btn>
                   </v-form>
                   </div>
-                </v-expand-transition>-->
+                </v-expand-transition>
                 </v-card>
               </v-flex>
           </v-layout>
@@ -113,15 +111,15 @@ export default
             console.log('hi')
           fb.db.collection(this.dbName).doc(id).collection('participants').doc(user.uid).set({name: this.Name, email: this.Email, phone: this.phoneN, confirmation: false},{merge: true}).then(() =>
             {
-              var eventObj = {EventName: title, confirmation: false, eventDate: date};
-              console.log(eventObj)
+              //var eventObj = {EventName: title, confirmation: false, eventDate: date};
+              //console.log(eventObj)
               //console.log("You signed up for an event");
               fb.db.collection('users').doc(user.uid).collection('myEvents').doc(id).set({dbName: this.dbName, EventName: title, confirmation: false, eventDate: date, eventTime: time, date: date1});
-              const docID = user.uid;
-              const sendEventConfirmation = fb.functions.httpsCallable('sendEventConfirmation');
-              sendEventConfirmation({email: this.Email, id: docID, dbName: this.dbName, eventID: id, date: date, time: time, title: title}).then((result) => {
+              //const docID = user.uid;
+              //const sendEventConfirmation = fb.functions.httpsCallable('sendEventConfirmation');
+              /*sendEventConfirmation({email: this.Email, id: docID, dbName: this.dbName, eventID: id, date: date, time: time, title: title}).then((result) => {
                 console.log(result);
-              });
+              });*/
               this.shower = true;
             })
           }
@@ -132,11 +130,12 @@ export default
             fb.db.collection(this.dbName).doc(id).collection('participants').add({name: this.Name, email: this.Email, phone: this.phoneN, confirmation: false}).then((docRef) =>
             {
 
-              const docID = docRef.id;
+              /*const docID = docRef.id;
               const sendEventConfirmation = fb.functions.httpsCallable('sendEventConfirmation');
               sendEventConfirmation({email: this.Email, id: docID, dbName: this.dbName, eventID: id, date: date, time: time,  title: title}).then((result) => {
                 console.log(result);
-              });
+              });*/
+              console.log(docRef);
               this.shower = true;
 
             })
@@ -185,7 +184,7 @@ export default
         {
           changes.forEach(change =>
           {
-
+            console.log(change.doc.data().date, date)
             if(Date.parse(change.doc.data().date) < Date.parse(date) )
             {
                 /*console.log(change.doc.data().date)

@@ -1,6 +1,7 @@
  <template>
    <v-layout justify-center id="Home">
       <v-flex xs12 sm12 md12>
+        
         <v-layout justify-center>
           <v-flex xs12 sm12 md12>
                 <phototog :images="images"></phototog>
@@ -9,6 +10,7 @@
     <v-container>
       <v-layout row justify-center >
             <v-flex xs12 sm12 md12>
+              <v-alert type="info" color="blue" v-if="riverReportAlert"> River Report Update by {{riverReportAlert.Author}} on {{riverReportAlert.date}}</v-alert>
               <div>
                 <v-card tile flat class="ma-2 pa-2 border-thing" height="auto">
                   <h2 style="border-bottom: 1px solid black; border-top: 1px solid black; text-align:center;" class="pa-4 font-weight-light"><strong>The Shop</strong></h2>
@@ -151,7 +153,8 @@ export default {
         ratio: null,
         height: 375,
         storageName: ""
-      }
+      },
+      riverReportAlert: null,
 
 
   }
@@ -198,6 +201,11 @@ export default {
   fb.db.collection('Announcements').doc('dXPC6NqqtFIgFRIWfNGY').get().then((snapshot) =>
   {
     this.annoucnementObject = snapshot.data();
+  })
+
+  fb.db.collection('RiverReportAlert').doc('i8X355R2AiKDIK5naIwj').get().then((snapshot) =>
+  {
+    this.riverReportAlert = snapshot.data();
   })
 }
 }

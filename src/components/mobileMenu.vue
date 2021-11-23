@@ -177,8 +177,6 @@ import fb from "@/fb"
                {id:10, title: "Delete", src:'/Delete'},
                {id:11, title: "Modify", src:'/Modify'},
                {id:12, title: "Add Trip Dates", src:'/SpecialtyTrips'}
-               //{id:10, title: "scheduler", src:'/Schedule'},
-               //{id:11, title: "Employee schedule", src:'/EmployeeSchedule'}
              ]
            }
           else
@@ -186,8 +184,8 @@ import fb from "@/fb"
               this.links =
               [
                 {id:1, title: 'My Account', src:'/Account'},
-                {id:2, title: 'My Events/Classes', src:'/MyEvents'},
-                {id:3, title: 'Manage Subscriptions', src:'/MySubscriptions'},
+                //{id:2, title: 'My Events/Classes', src:'/MyEvents'},
+                //{id:3, title: 'Manage Subscriptions', src:'/MySubscriptions'},
               ]
             }
         })
