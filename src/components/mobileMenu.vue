@@ -184,8 +184,8 @@ import fb from "@/fb"
               this.links =
               [
                 {id:1, title: 'My Account', src:'/Account'},
-                {id:2, title: 'My Events/Classes', src:'/MyEvents'},
-                {id:3, title: 'Manage Subscriptions', src:'/MySubscriptions'},
+                //{id:2, title: 'My Events/Classes', src:'/MyEvents'},
+                //{id:3, title: 'Manage Subscriptions', src:'/MySubscriptions'},
               ]
             }
         })

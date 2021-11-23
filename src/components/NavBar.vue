@@ -174,14 +174,14 @@ export default
               {id: 3, title: 'Add Class', src: '/addClass'},
               {id: 4, title: 'Add Employee', src:'/AddEmployee'},
               {id: 5, title: 'Add Blog', src: '/AddBlog'},
-             {id: 6, title: 'My Account', src: '/Account'},
-             {id: 7, title: 'Update River Report', src: '/UpdateRR'},
-             {id: 8, title: 'Event Portal', src: '/EventPortal'},
-             {id:9, title: "Email Blast", src:'/Email'},
-             {id:10, title: "Delete", src:'/Delete'},
-             {id:11, title: "Modify", src:'/Modify'},
-             {id:12, title: "Add/Delete Trip Dates", src:'/SpecialtyTrips'},
-            {id:13, title: "Update Annnouncement", src:'/AddAnnouncements'},
+              {id: 6, title: 'My Account', src: '/Account'},
+              {id: 7, title: 'Update River Report', src: '/UpdateRR'},
+              {id: 8, title: 'Event Portal', src: '/EventPortal'},
+              {id:9, title: "Email Blast", src:'/Email'},
+              {id:10, title: "Delete", src:'/Delete'},
+              {id:11, title: "Modify", src:'/Modify'},
+              {id:12, title: "Add/Delete Trip Dates", src:'/SpecialtyTrips'},
+              {id:13, title: "Update Annnouncement", src:'/AddAnnouncements'},
 
            ]
          }
@@ -190,8 +190,8 @@ export default
             this.links =
             [
               {id:1, title: 'My Account', src:'/Account'},
-              {id:2, title: 'My Events/Classes', src:'/MyEvents'},
-              {id:3, title: 'Manage Subscriptions', src:'/MySubscriptions'},
+              //{id:2, title: 'My Events/Classes', src:'/MyEvents'},
+              //{id:3, title: 'Manage Subscriptions', src:'/MySubscriptions'},
             ]
           }
       })

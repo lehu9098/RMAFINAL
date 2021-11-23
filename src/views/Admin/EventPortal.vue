@@ -7,7 +7,7 @@
             <v-flex xs12 sm12 md12>
               <h1 class="text-center"> {{dbName}} </h1>
             </v-flex>
-              <v-flex xs12 sm8 md6 v-for="event in eventTitle" :key="event.id">
+              <v-flex xs12 sm10 md10 v-for="event in eventTitle" :key="event.id">
                 <v-card class="ma-2 card-overflow"  height="300" >
                 <v-card-title> {{event.title}} / {{event.date}}</v-card-title>
                 <v-simple-table>
@@ -25,7 +25,7 @@
                     <td>{{participant.name}}</td>
                     <td>{{participant.email}}</td>
                     <td>{{participant.phone}}</td>
-                    <td>{{participant.Confirmed}}</td>
+                    <td><v-checkbox type="checkbox" v-model="participant.Confirmed" v-on:click="updateConfirmation(dbName, event.id, participant)"></v-checkbox></td>
                   </tr>
 
                 </tbody>
@@ -102,6 +102,16 @@ export default{
   },
   methods:
   {
+    updateConfirmation: function(dbName, eventID, participant){
+
+      fb.db.collection(dbName).doc(eventID).collection('participants').doc(participant.id,).set({confirmation: participant.Confirmed}, {merge: true}).then(() => {
+        let event = this.eventTitle.find(x => x.id == eventID)
+        let changedParticipant = event.participants.find(x => x.id == participant.id);
+        changedParticipant.colorClass = participant.Confirmed ? 'confirmed' : 'not-confirmed';
+        event.capacity = participant.Confirmed ? event.capacity - 1 : event.capacity + 1;
+        fb.db.collection(dbName).doc(eventID).set({capacity: event.capacity}, {merge: true})
+      })
+    },
     download: function(save, title)
     {
       var x = ""
@@ -163,11 +173,13 @@ export default{
                       }
                     }
                   })
+                  //console.log(item.data());
                   this.eventTitle.push({
                     title: item.data().title,
                     id: item.id,
                     participants: this.eventAtt,
-                    date: item.data().date
+                    date: item.data().date,
+                    capacity: item.data().capacity
                   })
                     this.eventAtt = []
                 })

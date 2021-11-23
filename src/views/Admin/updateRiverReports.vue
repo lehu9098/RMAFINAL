@@ -154,6 +154,8 @@ export default
       const week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
       const dateFormatted = week[date.getDay()] + ", " + month[date.getMonth()] + " " + date.getDate();
 
+      fb.db.collection('RiverReportAlert').doc('i8X355R2AiKDIK5naIwj').set({Author: this.Author, date: dateFormatted, route: ''});
+
 
       if(this.River == "St. Vrain")
       {

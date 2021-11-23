@@ -7,13 +7,13 @@
             <v-alert type="success" v-if="success"> You successfully added an Annoucement  <v-btn text v-on:click="close()"><v-icon class="font-weight-light">close</v-icon></v-btn></v-alert>
              <v-alert type="error" v-if="deleted"> You successfully deleted an Annoucement  <v-btn text v-on:click="close()"><v-icon class="font-weight-light">close</v-icon></v-btn></v-alert>
             <v-card class="ma-4" raised>
-              <h3 style="text-align: center;" class="pa-4">Add Annoucement</h3>
+              <h3 style="text-align: center;" class="pa-4">Add/Update Annoucement</h3>
               <v-form class="pa-4" outlined ref="form">
                 <v-text-field id="Title" v-model="announcementObject.title" outlined placeholder="Enter Title Here"></v-text-field>
                 <v-textarea id="Announcement" v-model="announcementObject.announcement" outlined placeholder="Enter Announcement Here"></v-textarea>
                 <v-slider label="Image Height" max="500" min="250" v-model="announcementObject.height"></v-slider>
                 <v-file-input type="file" v-model="photo" accept="image/*" label="Cover Image Upload" prepend-icon="mdi-camera" @change="upload()" :loading="load"></v-file-input>
-                <v-btn block dark class="blue-grey darken-3" @click="addAnnouncement()"> Add Annoucement </v-btn>
+                <v-btn block dark class="blue-grey darken-3" @click="addAnnouncement()"> Add/Update Annoucement </v-btn>
               </v-form>
             </v-card>
           </v-flex>
@@ -35,7 +35,9 @@
               </v-card>
           </v-flex>
           <v-flex xs6 sm6 md6 class="mt-6" v-if="announcementObject.active">
-            <v-btn block dark class="red darken-3" @click="deleteAnnouncement()"> Delete Current Announcement </v-btn>
+            <v-btn block dark class="red darken-3" @click="deleteButton = true" v-if="!deleteButton"> Delete Current Announcement </v-btn>
+            <v-btn block dark class="red darken-3" @click="deleteAnnouncement()" v-if="deleteButton"> Confirm Delete </v-btn>
+            <v-btn block dark class="grey darken-3" @click="deleteButton = false" v-if="deleteButton"> Cancel </v-btn>
           </v-flex>
         </v-layout>
 
@@ -55,6 +57,7 @@ export default {
       load: false,
       photoToDelete: "",
       deleted: false,
+      deleteButton: false,
       announcementObject: {
         announcement: "",
         title: "",
@@ -74,6 +77,7 @@ export default {
         this.photo = null;
         fb.storage.ref(this.photoToDelete).delete();
       }).catch((error) => {
+        console.log(error);
         this.error = true;
         this.errorMessage = error.message;
       });
