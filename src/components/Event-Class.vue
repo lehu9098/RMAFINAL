@@ -106,9 +106,8 @@ export default
       {
         //fb.auth.onAuthStateChanged(user => {
         var user = fb.auth.currentUser;
-          if(user != null)
-          {
-            console.log('hi')
+        if(user != null)
+        {
           fb.db.collection(this.dbName).doc(id).collection('participants').doc(user.uid).set({name: this.Name, email: this.Email, phone: this.phoneN, confirmation: false},{merge: true}).then(() =>
             {
               //var eventObj = {EventName: title, confirmation: false, eventDate: date};
@@ -184,7 +183,6 @@ export default
         {
           changes.forEach(change =>
           {
-            console.log(change.doc.data().date, date)
             if(Date.parse(change.doc.data().date) < Date.parse(date) )
             {
                 /*console.log(change.doc.data().date)
