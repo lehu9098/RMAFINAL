@@ -31,7 +31,7 @@
                 </tbody>
               </template>
                 </v-simple-table>
-                <v-btn text block v-on:click="download(event.participants, event.title)">Download Participants</v-btn>
+                <v-btn text block v-on:click="download(event.participants, event.title)" class="float">Download Participants</v-btn>
                 </v-card>
               </v-flex>
             </v-layout>
@@ -87,6 +87,7 @@
 <script>
 import fb from '@/fb'
 import { saveAs } from 'file-saver';
+import { parse } from 'json2csv';
 //import portal from '../components/Participantsportal.vue'
 //import KCportal from '../components/KCParticipationPortal.vue'
 export default{
@@ -114,6 +115,8 @@ export default{
     },
     download: function(save, title)
     {
+      const fields = ['name', 'phone', 'email', 'confirmed'];
+      const opts = { fields };
       var x = ""
       var file = []
       for(x of save)
@@ -125,10 +128,14 @@ export default{
           confirmed: x.Confirmed
         })
       }
-      var blob = new Blob([JSON.stringify(file)], {
-        type: "application/pdf;charset=utf-8"
-      });
-      saveAs(blob, title +"-participants.txt");
+      try {
+        const csv = parse(file, opts);
+        var blob = new Blob(["\ufeff", csv]);
+        saveAs(blob, title +"-participants.csv");
+      } catch (err) {
+        console.error(err);
+      }
+      
     },
 
 
@@ -213,6 +220,10 @@ export default{
 {
   overflow: scroll;
 
+}
+.float{
+  position: absolute;
+  bottom: 0;
 }
 
 </style>

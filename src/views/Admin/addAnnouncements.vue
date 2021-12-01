@@ -111,6 +111,7 @@ export default {
       //set everything blank and set active to false
       fb.db.collection('Announcements').doc('dXPC6NqqtFIgFRIWfNGY').set(this.announcementObject).then(() => {
         this.deleted = true;
+        this.deleteButton = false;
         fb.storage.ref(this.photoToDelete).delete();
       })
     },
