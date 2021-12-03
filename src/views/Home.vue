@@ -10,7 +10,7 @@
     <v-container>
       <v-layout row justify-center >
             <v-flex xs12 sm12 md12>
-              <v-alert type="info" color="blue" v-if="riverReportAlert"> {{riverReportAlert.river}} river report was updated by {{riverReportAlert.Author}} on {{riverReportAlert.date}}. <a :href="riverReportAlert.route" class="alert-text">Check it out here!</a><v-icon v-on:click="close('Report')" class="font-weight-light float">close</v-icon></v-alert>
+              <v-alert type="info" color="blue" v-if="riverReportAlert"> {{riverReportAlert.river}} report was updated by {{riverReportAlert.Author}} on {{riverReportAlert.date}}. <a :href="riverReportAlert.route" class="alert-text">Check it out here!</a><v-icon v-on:click="close('Report')" class="font-weight-light float">close</v-icon></v-alert>
               <div>
                 <v-card tile flat class="ma-2 pa-2 border-thing" height="auto">
                   <h2 style="border-bottom: 1px solid black; border-top: 1px solid black; text-align:center;" class="pa-4 font-weight-light"><strong>The Shop</strong></h2>

@@ -119,6 +119,7 @@ export default {
     {
       this.success = false;
       this.deleted = false;
+      this.error = false
     }
   },
   created()
