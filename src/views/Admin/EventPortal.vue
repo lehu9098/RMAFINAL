@@ -31,7 +31,7 @@
                 </tbody>
               </template>
                 </v-simple-table>
-                <v-btn text block v-on:click="download(event.participants, event.title)" class="float">Download Participants</v-btn>
+                <v-btn text block v-on:click="download(event.participants, event.title)">Download Participants</v-btn>
                 </v-card>
               </v-flex>
             </v-layout>

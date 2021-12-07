@@ -1,11 +1,5 @@
 <template>
   <div class="classes">
-    <v-container class="py-1 my-1" v-if="shower">
-      <v-alert type="success" >
-        Congrats you signed up for an event. A shop employee will contact you to confirm your attendance a few days before the event.
-        <v-btn text v-on:click="shower = false"><v-icon class="font-weight-light">close</v-icon></v-btn>
-      </v-alert>
-    </v-container>
     <v-container class="py-1">
           <v-layout row wrap inline-block justify-center>
               <v-flex xs12 sm12 md12>
@@ -13,7 +7,7 @@
                   <h2>Upcoming {{eventName}}</h2>
                 </v-card>
               </v-flex>
-              <v-flex xs12 sm8 md6 id="about" v-for="evt in eventInfo" :key="evt.id" >
+              <v-flex xs12 sm8 md6 id="about" v-for="(evt, i) in eventInfo" :key="evt.id" >
                 <v-card  flat tile class="ma-2 border-thing card-overflow" max-height="800" scrollable>
                   <v-img class=" align-end" height="400" :src="evt.image">
                       <v-overlay value="true" absolute>
@@ -33,7 +27,10 @@
                   </v-card-text>
               <v-card-text v-if="evt.capacity != 0" class="green--text"> <b>Available Spots: </b>{{evt.capacity}}</v-card-text>
                   <v-card-text v-if="evt.capacity == 0" class="red--text"> <b>Available Spots: </b>This Class Is Full</v-card-text>
-
+              <v-alert type="success" v-if="evt.success">
+                You successfully signed up for {{evt.title}}. A shop employee will contact you to confirm your attendance.
+                <v-btn text v-on:click="evt.success = false"><v-icon class="font-weight-light">close</v-icon></v-btn>
+              </v-alert>
               <v-btn block text @click="evt.show = !evt.show" v-if="evt.capacity != 0"> Sign Up  <v-icon> expand_more </v-icon></v-btn>
                 <v-expand-transition>
                   <div v-show="evt.show">
@@ -42,7 +39,7 @@
                     <v-text-field label="Enter Name" v-model="Name"></v-text-field>
                     <v-text-field label="Enter Email" v-model="Email"></v-text-field>
                     <v-text-field label="Enter Phone Number" v-model="phoneN"></v-text-field>
-                    <v-btn text block class="button-img grey" v-on:click="addParticipant(evt.id, evt.title, evt.dateFormatted, evt.timeFormatted, evt.date)"> Sign Up</v-btn>
+                    <v-btn text block class="button-img grey" v-on:click="addParticipant(evt.id, evt.title, evt.dateFormatted, evt.timeFormatted, evt.date, i)"> Sign Up</v-btn>
                   </v-form>
                   </div>
                 </v-expand-transition>
@@ -102,7 +99,7 @@ export default
         }
     },
     methods:{
-      addParticipant: function(id, title, date, time, date1)
+      addParticipant: function(id, title, date, time, date1, i)
       {
         //fb.auth.onAuthStateChanged(user => {
         var user = fb.auth.currentUser;
@@ -120,6 +117,8 @@ export default
                 console.log(result);
               });*/
               this.shower = true;
+              this.eventInfo[i].show = false;
+              this.eventInfo[i].success = true;
             })
           }
           else
@@ -136,7 +135,8 @@ export default
               });*/
               console.log(docRef);
               this.shower = true;
-
+              this.eventInfo[i].show = false;
+              this.eventInfo[i].success = true;
             })
           }
           //this.$refs.form.reset();
@@ -252,7 +252,8 @@ export default
                   dateread: nd,
                   timeFormatted: timeFormatted,
                   dateFormatted: dateFormatted,
-                  noSlot: noSlot
+                  noSlot: noSlot,
+                  success: false,
                 }) ///So REason added works is becuase when the page is first loaded up it treats all existing elemets as added elements
               }
 
