@@ -57,7 +57,7 @@ export default
           eventName: "Kids Camp",
           classorevent: "Classes",
           camp: [{title: "Kids Camp", src: "/kids"}, {title: "Youth Camp", src: "/youth"}],
-          about: "Introduce your child to the basics of fly fishing by enrolling them in our Fly Fishing Kids Camp. While exploring local waters including Boulder Creek, Wonderland Lake, and Pella Crossing, young anglers will build new friendships and experience nature as they develop enthusiasm for fly fishing. Our 3-day kids camp is intended for children ages 6 to 10 and runs from 8:30am to 4:30pm each day. So contact Rocky Mountain Anglers to obtain more information about our excellent summer camp program and register your child for any of our 3 sessions!",
+          about: "Introduce your child to the basics of fly fishing by enrolling them in our Fly Fishing Kids Camp. While exploring local waters including Boulder Creek, Wonderland Lake, and Pella Crossing, young anglers will build new friendships and experience nature as they develop enthusiasm for fly fishing. Our 3-day kids camp is intended for children ages 8 to 11 and runs from 8:30am to 4:30pm each day. So contact Rocky Mountain Anglers to obtain more information about our excellent summer camp program and register your child for any of our 3 sessions!",
           images1: [require("../../Photos/Kids Camp/IMG_1640.jpg"), require("../../Photos/Kids Camp/IMG_1626.jpg"), require("../../Photos/Kids Camp/IMG_1634.jpg"), require("../../Photos/Kids Camp/erikkidscamp.jpg"),require("../../Photos/Kids Camp//IMG_0057.jpg"), require("../../Photos/Kids Camp//IMG_0079.jpg")],
         }
     },
