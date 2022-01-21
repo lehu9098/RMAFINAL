@@ -39,7 +39,9 @@
                     <v-text-field label="Enter Name" v-model="Name"></v-text-field>
                     <v-text-field label="Enter Email" v-model="Email"></v-text-field>
                     <v-text-field label="Enter Phone Number" v-model="phoneN"></v-text-field>
-                    <v-btn text block class="button-img grey" v-on:click="addParticipant(evt.id, evt.title, evt.dateFormatted, evt.timeFormatted, evt.date, i)"> Sign Up</v-btn>
+                    <v-checkbox v-if="showCheckBox" type="checkbox" label="Do you need to reserve a vise and tools?" v-model="BAB.Tools"></v-checkbox>
+                    <v-checkbox v-if="showCheckBox" type="checkbox" label="Have you tied flies before?" v-model="BAB.TiedBefore"></v-checkbox>
+                    <v-btn text block class="button-img grey" v-on:click="addParticipant(i, evt.id)"> Sign Up</v-btn>
                   </v-form>
                   </div>
                 </v-expand-transition>
@@ -82,6 +84,11 @@ export default
   },
     data(){
       return{
+        BAB: {
+          Tools: false,
+          TiedBefore: false,
+        },
+        showCheckBox: false,
         emails: [],
         eventInfo: [],
         shower: false,
@@ -99,48 +106,24 @@ export default
         }
     },
     methods:{
-      addParticipant: function(id, title, date, time, date1, i)
+      addParticipant: function(i, id)
       {
-        //fb.auth.onAuthStateChanged(user => {
-        var user = fb.auth.currentUser;
-        if(user != null)
+        let participant = {name: this.Name, email: this.Email, phone: this.phoneN, confirmation: false};
+        //if show box is true its bugs and brews so add extra questions to the firsbase call.
+        if(this.showCheckBox)
         {
-          fb.db.collection(this.dbName).doc(id).collection('participants').doc(user.uid).set({name: this.Name, email: this.Email, phone: this.phoneN, confirmation: false},{merge: true}).then(() =>
-            {
-              //var eventObj = {EventName: title, confirmation: false, eventDate: date};
-              //console.log(eventObj)
-              //console.log("You signed up for an event");
-              fb.db.collection('users').doc(user.uid).collection('myEvents').doc(id).set({dbName: this.dbName, EventName: title, confirmation: false, eventDate: date, eventTime: time, date: date1});
-              //const docID = user.uid;
-              //const sendEventConfirmation = fb.functions.httpsCallable('sendEventConfirmation');
-              /*sendEventConfirmation({email: this.Email, id: docID, dbName: this.dbName, eventID: id, date: date, time: time, title: title}).then((result) => {
-                console.log(result);
-              });*/
-              this.shower = true;
-              this.eventInfo[i].show = false;
-              this.eventInfo[i].success = true;
-            })
-          }
-          else
-          {
-             /*const id = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0,50);
-             console.log(id)*/
-            fb.db.collection(this.dbName).doc(id).collection('participants').add({name: this.Name, email: this.Email, phone: this.phoneN, confirmation: false}).then((docRef) =>
-            {
-
-              /*const docID = docRef.id;
-              const sendEventConfirmation = fb.functions.httpsCallable('sendEventConfirmation');
-              sendEventConfirmation({email: this.Email, id: docID, dbName: this.dbName, eventID: id, date: date, time: time,  title: title}).then((result) => {
-                console.log(result);
-              });*/
-              console.log(docRef);
-              this.shower = true;
-              this.eventInfo[i].show = false;
-              this.eventInfo[i].success = true;
-            })
-          }
-          //this.$refs.form.reset();
-        },
+           participant.BAB = this.BAB;
+        }
+        console.log(participant)
+  
+        fb.db.collection(this.dbName).doc(id).collection('participants').add(participant).then((docRef) =>
+        {
+            console.log(docRef);
+            this.shower = true;
+            this.eventInfo[i].show = false;
+            this.eventInfo[i].success = true;
+        })
+      },
       timeFormatted: function(time)
       {
         var timeFormatted;
@@ -168,6 +151,9 @@ export default
     },
     created()
     {
+      if(this.dbName === 'BugsandBrews'){
+        this.showCheckBox = true;
+      }
                                   //res takes response of snapshot as a function parameter
       fb.db.collection(this.dbName).orderBy("date").orderBy("time", "asc").onSnapshot(res => { //onSnapshot takes a screen shot of the updated db after a change has occured
         const changes = res.docChanges(); //the speific pieces of any document that was changed at that instance

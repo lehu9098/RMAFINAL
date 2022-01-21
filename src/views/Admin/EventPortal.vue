@@ -17,6 +17,8 @@
                     <th class="text-left">Name</th>
                     <th class="text-left">Email</th>
                     <th class="text-left">Phone Number</th>
+                    <th v-if="isBAB" class="text-left">Has Tied Before</th>
+                    <th v-if="isBAB" class="text-left">Has Tool/Vise</th>
                     <th class="text-left">Confirmed</th>
                   </tr>
                 </thead>
@@ -25,6 +27,8 @@
                     <td>{{participant.name}}</td>
                     <td>{{participant.email}}</td>
                     <td>{{participant.phone}}</td>
+                    <td v-if="isBAB">{{participant.BAB ? participant.BAB.TiedBefore : "NA"}}</td>
+                    <td v-if="isBAB">{{participant.BAB ? participant.BAB.Tools : "NA"}}</td>
                     <td><v-checkbox type="checkbox" v-model="participant.Confirmed" v-on:click="updateConfirmation(dbName, event.id, participant)"></v-checkbox></td>
                   </tr>
 
@@ -99,6 +103,7 @@ export default{
       eventAtt: [],
       showKC: false,
       showEvent: false,
+      isBAB: false,
     }
   },
   methods:
@@ -116,17 +121,27 @@ export default{
     download: function(save, title)
     {
       const fields = ['name', 'phone', 'email', 'confirmed'];
+      console.log(this.dbName);
+      if(this.dbName === 'BugsandBrews'){
+        fields.push('Tools');
+        fields.push('TiedBefore')
+      }
       const opts = { fields };
       var x = ""
       var file = []
       for(x of save)
       {
-        file.push({
+        let participant = {
           name: x.name,
           phone: x.phone,
           email: x.email,
           confirmed: x.Confirmed
-        })
+        };
+        if(this.dbName === 'BugsandBrews'){
+          participant.Tools = x.BAB ? x.BAB.Tools : "NA";
+          participant.TiedBefore = x.BAB ? x.BAB.TiedBefore : "NA";
+        }
+        file.push(participant)
       }
       try {
         const csv = parse(file, opts);
@@ -142,6 +157,9 @@ export default{
     getData: function(){
       this.eventTitle = [];
       this.eventAtt = [];
+      if(this.dbName === 'BugsandBrews'){
+        this.isBAB = true;
+      }
       fb.db.collection(this.dbName).get().then((snapshot) =>
       {
         //console.log(this.dbName)
@@ -162,6 +180,7 @@ export default{
                           name: Attendee.data().name,
                           email: Attendee.data().email,
                           phone: Attendee.data().phone,
+                          BAB: Attendee.data().BAB ? Attendee.data().BAB : null,
                           Confirmed: Attendee.data().confirmation,
                           colorClass: 'confirmed'
                         })
@@ -174,6 +193,7 @@ export default{
                             name: Attendee.data().name,
                             email: Attendee.data().email,
                             phone: Attendee.data().phone,
+                            BAB: Attendee.data().BAB ? Attendee.data().BAB : null,
                             Confirmed: Attendee.data().confirmation,
                             colorClass: 'not-confirmed'
                           })
