@@ -31,7 +31,7 @@
                 You successfully signed up for {{evt.title}}. A shop employee will contact you to confirm your attendance.
                 <v-btn text v-on:click="evt.success = false"><v-icon class="font-weight-light">close</v-icon></v-btn>
               </v-alert>
-              <v-btn block text @click="evt.show = !evt.show" v-if="evt.capacity != 0"> Sign Up  <v-icon> expand_more </v-icon></v-btn>
+              <v-btn block text @click="evt.show = !evt.show" v-if="evt.capacity != 0" :disabled="SignUpPast"> Sign Up  <v-icon> expand_more </v-icon></v-btn>
                 <v-expand-transition>
                   <div v-show="evt.show">
                   <v-form class="pa-6">
@@ -57,6 +57,7 @@
 
 <script>
 import fb from '@/fb'
+import DateTime from '../Models/DateTime'
 
 export default
 {
@@ -80,6 +81,10 @@ export default
     {
       type: String,
       required: true
+    },
+    disableAt: {
+      type: Number,
+      required: false
     }
   },
     data(){
@@ -88,6 +93,7 @@ export default
           Tools: false,
           TiedBefore: false,
         },
+        SignUpPast: false,
         showCheckBox: false,
         emails: [],
         eventInfo: [],
@@ -171,40 +177,13 @@ export default
           {
             if(Date.parse(change.doc.data().date) < Date.parse(date) )
             {
-                /*console.log(change.doc.data().date)
-                console.log(Date.parse(date))
-                console.log(Date.parse(change.doc.data().date))*/
                 fb.db.collection(this.dbName).doc(change.doc.id).delete().then(()=>
                 {
                     console.log("Deleted from DB");
 
                 })
-
-
             }
             else{
-
-            var day = parseInt(change.doc.data().date.slice(8, 10));
-            //console.log((today.getMonth()+1), parseInt(change.doc.data().date.slice(5, 7)), today.getDate(), day, change.doc.data().reminderSend);
-            if((today.getMonth()+1) == parseInt(change.doc.data().date.slice(5, 7)) && (day - today.getDate()) <= 2 && change.doc.data().reminderSend == false){ //If month is equal and day is within 2 days of event and reminderSend has not been sent
-              console.log("Hello")
-             fb.db.collection(this.dbName).doc(change.doc.id).collection('participants').where("confirmation", "==", true).get().then((snapshot) => { //Get emails from participants
-                snapshot.docs.forEach((doc) => {
-                  this.emails.push(doc.data().email);
-                })
-              }).then(() => {
-                var timeFormed = this.timeFormatted(change.doc.data().time);
-                const sendReminder = fb.functions.httpsCallable('sendReminder');
-                sendReminder({emails: this.emails, date: change.doc.data().date, time: timeFormed,  title: change.doc.data().title}).then(() => {
-
-                }).then(()=> {
-                  fb.db.collection(this.dbName).doc(change.doc.id).set({reminderSend: true},{merge: true});
-                });
-              })
-              //send Email reminders and set reminderSend to true so it wont run again
-
-
-            }
 
               if(change.type === 'added') { //change.type is a built in property can either be deleted added modified
               //var d = change.doc.data().date;
@@ -218,9 +197,11 @@ export default
               var dateFormatted = week[nd.getDay()] + ", " + month[nd.getMonth()] + " " + nd.getDate();
 
               var timeFormatted = [];
+              var newDateTime = [];
               var noSlot;
               //var timeCheck = change.doc.data().time.slice(0, 2)
               change.doc.data().time.forEach((slot) => {
+                newDateTime.push(new DateTime(change.doc.data().date, slot));
                 timeFormatted.push(this.timeFormatted(slot))
               })
               if(timeFormatted.length == 1){
@@ -229,6 +210,11 @@ export default
               if(timeFormatted.length > 1){
                 noSlot = false;
               }
+
+              if(this.disableAt && newDateTime[0].timeDifference < this.disableAt ){
+                this.SignUpPast = true;
+              }
+              
               //var timeFormatted = this.timeFormatted(change.doc.data().time);
               this.eventInfo.push(
                 { //brackets are because we are pushing a object onto the array

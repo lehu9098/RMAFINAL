@@ -1,7 +1,7 @@
 <template>
   <div>
   <About :eventName="eventName" :about="about" :images1="images1" :classorevent="classorevent"></About>
-  <Class :dbName= "dbName" :subdbName= "subdbName" :eventName="eventName" :about="about"></Class>
+  <Class :dbName= "dbName" :subdbName= "subdbName" :eventName="eventName" :about="about" :disableAt="12"></Class>
 
   </div>
 </template>
