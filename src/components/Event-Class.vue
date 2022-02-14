@@ -26,7 +26,7 @@
                     </ul>
                   </v-card-text>
               <v-card-text v-if="evt.capacity != 0" class="green--text"> <b>Available Spots: </b>{{evt.capacity}}</v-card-text>
-                  <v-card-text v-if="evt.capacity == 0" class="red--text"> <b>Available Spots: </b>This Class Is Full</v-card-text>
+                  <v-card-text v-if="evt.capacity == 0" class="red--text"> <b>Available Spots: </b>Online signup is full, call the shop for extra availability.</v-card-text>
               <v-alert type="success" v-if="evt.success">
                 You successfully signed up for {{evt.title}}. A shop employee will contact you to confirm your attendance.
                 <v-btn text v-on:click="evt.success = false"><v-icon class="font-weight-light">close</v-icon></v-btn>
@@ -34,14 +34,42 @@
               <v-btn block text @click="evt.show = !evt.show" v-if="evt.capacity != 0" :disabled="SignUpPast"> Sign Up  <v-icon> expand_more </v-icon></v-btn>
                 <v-expand-transition>
                   <div v-show="evt.show">
-                  <v-form class="pa-6">
+                  <v-form class="pa-6" v-model="valid">
                     <v-divider></v-divider>
-                    <v-text-field label="Enter Name" v-model="Name"></v-text-field>
-                    <v-text-field label="Enter Email" v-model="Email"></v-text-field>
-                    <v-text-field label="Enter Phone Number" v-model="phoneN"></v-text-field>
-                    <v-checkbox v-if="showCheckBox" type="checkbox" label="Do you need to reserve a vise and tools?" v-model="BAB.Tools"></v-checkbox>
-                    <v-checkbox v-if="showCheckBox" type="checkbox" label="Have you tied flies before?" v-model="BAB.TiedBefore"></v-checkbox>
-                    <v-btn text block class="button-img grey" v-on:click="addParticipant(i, evt.id)"> Sign Up</v-btn>
+                    <v-text-field label="Enter Name" v-model="Name" :rules="inputRules"></v-text-field>
+                    <v-text-field label="Enter Email" v-model="Email" :rules="inputRules"></v-text-field>
+                    <v-text-field label="Enter Phone Number" v-model="phoneN" :rules="inputRules"></v-text-field>
+                    <v-radio-group
+                      v-model="BAB.Tools"
+                      mandatory
+                      v-if="showCheckBox"
+                    >
+                      <p> Do you need to reserve a vise and tools? </p>
+                      <v-radio
+                        label="Yes"
+                        value="Yes"
+                      ></v-radio>
+                      <v-radio
+                        label="No"
+                        value="No"
+                      ></v-radio>
+                    </v-radio-group>
+                    <v-radio-group
+                      v-model="BAB.TiedBefore" 
+                      mandatory
+                      v-if="showCheckBox"
+                    >
+                      <p> Have you tied flies before? </p>
+                      <v-radio
+                        label="Yes"
+                        value="Yes"
+                      ></v-radio>
+                      <v-radio
+                        label="No"
+                        value="No"
+                      ></v-radio>
+                    </v-radio-group>
+                    <v-btn text block class="button-img grey" v-on:click="addParticipant(i, evt.id)" :disabled="!valid"> Sign Up</v-btn>
                   </v-form>
                   </div>
                 </v-expand-transition>
@@ -108,8 +136,13 @@ export default
           {src: '../img/Leo.jpg'},
           {src: '../img/troutskin.png'}
         ],
-        show: true
-        }
+        show: true,
+        inputRules: [
+          v => !!v || 'Name is required',
+        ],
+        valid: false,
+        radios: null,
+      }
     },
     methods:{
       addParticipant: function(i, id)

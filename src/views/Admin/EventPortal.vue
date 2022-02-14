@@ -18,7 +18,7 @@
                     <th class="text-left">Email</th>
                     <th class="text-left">Phone Number</th>
                     <th v-if="isBAB" class="text-left">Has Tied Before</th>
-                    <th v-if="isBAB" class="text-left">Has Tool/Vise</th>
+                    <th v-if="isBAB" class="text-left">Needs Tool/Vise</th>
                     <th class="text-left">Confirmed</th>
                   </tr>
                 </thead>
